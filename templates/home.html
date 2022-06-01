@@ -1,0 +1,39 @@
+{% extends 'header.html' %}
+{% block content %}
+	<div class="row">
+		<form method="POST">
+				<div class="form-group">
+				    <label for="art"><b>Put Your Text Here:</b></label>
+				    {% if request.form.get("sentiment") %}
+				    <textarea class="form-control" id="art" rows="5" name="sentiment" placeholder="Article..." required>{{request.form.get("sentiment")}}</textarea>
+				    {% else %}
+				    <textarea class="form-control" id="art" rows="5" name="sentiment" placeholder="Article..." required></textarea>
+				    {% endif %}
+	
+				</div>
+				<div class="form-check form-check-inline">
+					<input class="form-check-input" type="radio" name="model" id="tt" value="lstm">
+				  	<label class="form-check-label" for="tt">
+				    	Bidirectional LSTM Model
+				  	</label>
+				</div>
+			</div>
+				<div class="col-md-5 offset-md-6">
+					<input type="submit" name="Submit" class="btn btn-primary">
+				</div>
+		</form>
+	</div>
+	<b><hr></b>
+	<h6 class="col-md-7 offset-md-5">Sentiment Analysis of the Input Text:</h6>
+	<div class="row border border-dark col-md-8 offset-md-2" style="background-color: white;">
+		{% if analysis %}
+			{% if analysis == 'POSITIVE' %}
+				<p class="h2 text-success text-center">{{analysis}}</p>
+			{% elif analysis == 'NEGATIVE' %}
+				<p class="h2 text-danger text-center">{{analysis}}</p>
+			{% endif %}
+		{% else %}
+			<small class="text-secondary">Result of the sentiment Analysis Will Be Shown Here...</small>
+		{% endif %}
+	</div>
+{% endblock %}
